@@ -1,7 +1,7 @@
 ﻿
 @{
 
-  
+
 
     ViewBag.Title = "DashBoard";
 }
@@ -21,7 +21,7 @@
 
     else if (Request.IsAuthenticated && User.IsInRole("Administrators"))
     {
-        Html.RenderAction("_AdminDashBoard", "Home");
+        Html.RenderAction("_AdminDashboard", "Home");
     }
     </div>
 

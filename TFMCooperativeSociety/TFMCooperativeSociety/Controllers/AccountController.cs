@@ -219,7 +219,7 @@ namespace TFMCooperativeSociety.Controllers
             {
                 //ViewBag.Message = "Model state not valid";
                 //return View();
-               
+
                 if (!_db.Users.Any(u => u.Email == model.Email))
                 {
                     try
@@ -503,13 +503,22 @@ namespace TFMCooperativeSociety.Controllers
 
         //
         // POST: /Account/LogOff
-        [HttpPost]
+
+
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+            return RedirectToAction("Index", "Home");
+        }
+
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
             return RedirectToAction("Index", "Home");
         }
+
 
         //
         // GET: /Account/ExternalLoginFailure
