@@ -1,0 +1,117 @@
+﻿@using Microsoft.AspNet.Identity;
+
+<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+    <div class="menu_section">
+        <h3>General</h3>
+        <ul class="nav side-menu">
+            <!--HOME -->
+            <li>
+                <a href="@Url.Action("DashBoard","Home")"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
+                  
+            </li>
+
+            <!--PROFILE EDITING DETAILS-->
+            <li>
+                <a><i class="fa fa-edit"></i> Profile <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="@Url.Action("Edit","Members", new {id = User.Identity.GetUserId()})">Complete Biodata</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("AddPhoneNumber","Manage")">Add PhoneNumber</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("ChangePassword","Manage")">ChangePassword</a>
+                    </li>        
+                </ul>
+            </li>
+            <!--BANK DETAILS-->
+            <li>
+                <a><i class="fa fa-desktop"></i> BAnk Registration <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="@Url.Action("Create","MemberBankDetails")">Add Your BankDetails</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("MemberIndex","MemberBankDetails")">View BankDetails</a>
+                    </li>
+
+                </ul>
+            </li>
+
+            <!--PAYMENT DETAILS-->
+            <li>
+                <a><i class="fa fa-desktop"></i> Payment Details <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="@Url.Action("Create","Payments")">Submit Payment</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("Approve","Payments")">Payment Vwerifictaion Status</a>
+                    </li>
+                    
+                </ul>
+            </li>
+
+            <!--LOAN INFO-->
+            <li>
+                <a><i class="fa fa-table"></i> Inquire Info <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="tables.html">Loan Status</a>
+                    </li>
+                    <li>
+                        <a href="tables_dynamic.html">Bank Account Details</a>
+                    </li>
+                </ul>
+            </li>
+    </div>
+    <div class="menu_section">
+        <h3>Live On</h3>
+        <ul class="nav side-menu">
+            @*<li>
+                <a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="e_commerce.html">E-commerce</a>
+                    </li>
+                    <li>
+                        <a href="projects.html">Projects</a>
+                    </li>
+                    <li>
+                        <a href="project_detail.html">Project Detail</a>
+                    </li>
+                    <li>
+                        <a href="contacts.html">Contacts</a>
+                    </li>
+                    <li>
+                        <a href="profile.html">Profile</a>
+                    </li>
+                </ul>
+            </li>*@
+            @*<li>
+                <a><i class="fa fa-windows"></i> Extras <span class="fa fa-chevron-down"></span></a>
+                <ul class="nav child_menu" style="display: none">
+                    <li>
+                        <a href="page_404.html">404 Error</a>
+                    </li>
+                    <li>
+                        <a href="page_500.html">500 Error</a>
+                    </li>
+                    <li>
+                        <a href="plain_page.html">Plain Page</a>
+                    </li>
+                    <li>
+                        <a href="login.html">Login Page</a>
+                    </li>
+                    <li>
+                        <a href="pricing_tables.html">Pricing Tables</a>
+                    </li>
+                </ul>
+            </li>*@
+            <li>
+                <a href="@Url.Action("Index","Home")",><i class="fa fa-laptop"></i> Go To LandPage </a>
+            </li>
+        </ul>
+    </div>
+</div>

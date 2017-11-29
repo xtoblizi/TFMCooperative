@@ -1,0 +1,27 @@
+﻿
+@{
+
+  
+
+    ViewBag.Title = "DashBoard";
+}
+
+<h2>DashBoard</h2>
+
+    <div  id="nav">
+        @if (ViewBag.Message != null)
+    {
+        <h2> @ViewBag.Message</h2>
+    }
+
+    @if (Request.IsAuthenticated && User.IsInRole("Members"))
+    {
+        Html.RenderAction("_MemberDashBoard", "Home");
+    }
+
+    else if (Request.IsAuthenticated && User.IsInRole("Administrators"))
+    {
+        Html.RenderAction("_AdminDashBoard", "Home");
+    }
+    </div>
+

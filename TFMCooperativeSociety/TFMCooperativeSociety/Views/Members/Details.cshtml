@@ -1,0 +1,219 @@
+﻿@model TFMCooperativeSociety.Models.Member
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Member</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ISTCWC)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ISTCWC)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TCWCIDCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TCWCIDCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessStreet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessStreet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinessState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinessState)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BusinesFullAdress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BusinesFullAdress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResidentialFullAddress)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResidentialFullAddress)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MiddleName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MiddleName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Gender)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Gender)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TownOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TownOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StateOfOrigin)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StateOfOrigin)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nationality)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nationality)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bus_stop)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bus_stop)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.State)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.State)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Passport)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Passport)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MemberId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

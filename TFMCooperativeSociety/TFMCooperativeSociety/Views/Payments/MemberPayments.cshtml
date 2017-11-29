@@ -1,0 +1,51 @@
+﻿@model IEnumerable<TFMCooperativeSociety.Models.Payment>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.BusinessStreet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AmountPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateOfPayment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ISApproved)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TellerID_TransactionID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Member.BusinessStreet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AmountPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfPayment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ISApproved)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TellerID_TransactionID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PaymentId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PaymentId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PaymentId })
+        </td>
+    </tr>
+}
+
+</table>

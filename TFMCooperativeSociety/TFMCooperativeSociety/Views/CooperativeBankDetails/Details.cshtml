@@ -1,0 +1,67 @@
+﻿@model TFMCooperativeSociety.Models.CooperativeBankDetail
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>CooperativeBankDetail</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Active)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Active)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BankName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BankName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccountNumber)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AccounName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AccounName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BVN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BVN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SortCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SortCode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CooperativeBankDetailId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
