@@ -38,9 +38,9 @@ namespace TFMCooperativeSociety.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -56,7 +56,7 @@ namespace TFMCooperativeSociety.Controllers
             }
         }
 
-        
+
 
         //
         // GET: /Account/Login
@@ -84,13 +84,13 @@ namespace TFMCooperativeSociety.Controllers
 
              var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(model.Email));
             if (user!=null)
-            { 
-                
+            {
+
             var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
-                    case SignInStatus.Success:                 
-                        return RedirectToAction("DashBaord", "Home", new { id = User.Identity.GetUserId() });
+                    case SignInStatus.Success:
+                        return RedirectToAction("DashBoard", "Home", new { id = User.Identity.GetUserId() });
                     case SignInStatus.LockedOut:
                         return View("Lockout");
                     case SignInStatus.RequiresVerification:
@@ -133,9 +133,9 @@ namespace TFMCooperativeSociety.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
+            // The following code protects for brute force attacks against the two factor codes.
+            // If a user enters incorrect codes for a specified amount of time then the user account
+            // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
@@ -178,9 +178,9 @@ namespace TFMCooperativeSociety.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 await this.UserManager.AddToRoleAsync(user.Id,"Members");
                 if (result.Succeeded)
-                {   
+                {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -206,7 +206,7 @@ namespace TFMCooperativeSociety.Controllers
         {
             return View();
         }
-        
+
 
         [HttpPost]
         [AllowAnonymous]
@@ -219,52 +219,61 @@ namespace TFMCooperativeSociety.Controllers
             {
                 //ViewBag.Message = "Model state not valid";
                 //return View();
-
-                try
+               
+                if (!_db.Users.Any(u => u.Email == model.Email))
                 {
-
-                    var user = new ApplicationUser
+                    try
                     {
-                        UserName = model.Email,
-                        Email = model.Email,
-                        FirstName = model.FirstName,
-                        MiddleName = model.MiddleName,
-                        LastName = model.FirstName,
-                       
-                    };
-                    var result = await UserManager.CreateAsync(user, model.Password);
 
-                    if (result.Succeeded)
-                    {
-                        var member = new Member
+                        var user = new ApplicationUser
                         {
-                            MemberId = user.Id,
-                            Email = user.Email,
-                            FirstName = user.FirstName,
-                            MiddleName = user.MiddleName,
-                            LastName = user.LastName,
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.FirstName,
+
                         };
-                        _db.Members.Add(member);
-                        await _db.SaveChangesAsync();
+                        var result = await UserManager.CreateAsync(user, model.Password);
 
-                        await this.UserManager.AddToRoleAsync(user.Id, "Members");
+                        if (result.Succeeded)
+                        {
+                            var member = new Member
+                            {
+                                MemberId = user.Id,
+                                Email = user.Email,
+                                FirstName = user.FirstName,
+                                MiddleName = user.MiddleName,
+                                LastName = user.LastName,
+                            };
+
+                            _db.Members.Add(member);
+                            await _db.SaveChangesAsync();
+
+                            await this.UserManager.AddToRoleAsync(user.Id, "Members");
 
 
-                        // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
+                            // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
 
-                        ViewBag.Message = "Registration Successful Sign In Now, To Continue";
-                        return RedirectToAction("Login", "Account");
+                            ViewBag.Message = "Registration Successful Sign In Now, To Continue";
+                            return RedirectToAction("Login", "Account");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "Registration was NOT Succesul, Try again " + "" + ex;
+                        return View(model);
                     }
                 }
-                catch (Exception ex)
+                else
                 {
-                    ViewBag.Message = "Registration was NOT Succesul, Try again ";
-                    return View(model);
+                    ViewBag.Message = "This Email" +"" +""+model.Email+""+" already exist, Login or use another email address";
+                    return View();
                 }
 
             }
 
-            // For more information on how to enable account confirmation and password reset please visit 
+            // For more information on how to enable account confirmation and password reset please visit
            // http://go.microsoft.com/fwlink/?LinkID=320771
             // Send an email with this link
             // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -275,7 +284,7 @@ namespace TFMCooperativeSociety.Controllers
 
             ViewBag.Message = "Unknown error";
             return View();
-           
+
 
         }
 
@@ -319,7 +328,7 @@ namespace TFMCooperativeSociety.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }

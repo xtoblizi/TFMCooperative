@@ -20,6 +20,8 @@ namespace TFMCooperativeSociety.Models
         [StringLength(100, ErrorMessage = "Last name cannot be longer than 100 characters.")]
         public string MiddleName { get; set; }
 
+ 
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
