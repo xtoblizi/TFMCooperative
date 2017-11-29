@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "RegisterMember";
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
 }
 
 <h2>RegisterMember</h2>
@@ -10,10 +11,10 @@
     <h2>@ViewBag.Message</h2>
 }
 
-@using (Html.BeginForm("RegisterMember","Account",FormMethod.Post, new { @class = "form-horizontal", role = "form" })) 
+@using (Html.BeginForm("RegisterMember","Account",FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>RegisterMemberViewModel</h4>
         <hr />

@@ -8461,6 +8461,7 @@ blockquote {
 }
 
 .inner-block {
+    background-color: grey;
     overflow: hidden;
     margin-top: 25px;
     color: white;
