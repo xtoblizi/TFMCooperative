@@ -367,8 +367,8 @@ body.nav-md .container.body .right_col {
 }
 
 body {
-    color: darkgreen;
-    background-color: #5a738e; /*#ECF0F1; #FCFCFC*/
+
+    background-color: black; /*#ECF0F1; #FCFCFC*/
     font-family: "Helvetica Neue", Roboto, Arial, "Droid Sans", sans-serif;
     font-size: 13px;
     font-weight: 400;
