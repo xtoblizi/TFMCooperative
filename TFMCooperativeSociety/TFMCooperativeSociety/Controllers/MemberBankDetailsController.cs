@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.AspNet.Identity;
 using TFMCooperativeSociety.Models;
 
 namespace TFMCooperativeSociety.Controllers
@@ -21,7 +22,13 @@ namespace TFMCooperativeSociety.Controllers
             var memberBankDetails = db.MemberBankDetails.Include(m => m.Member);
             return View(await memberBankDetails.ToListAsync());
         }
+        public async Task<ActionResult> MemberIndex()
+        {
+            var userId = User.Identity.GetUserId();
 
+            var memberBankDetails = db.MemberBankDetails.Include(m => m.Member)?.Where(m=>m.MemberId.Equals(userId));
+            return View(await memberBankDetails.ToListAsync());
+        }
         // GET: MemberBankDetails/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -40,16 +47,19 @@ namespace TFMCooperativeSociety.Controllers
         // GET: MemberBankDetails/Create
         public ActionResult Create()
         {
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "BusinessStreet");
+            var userId = User.Identity.GetUserId();
+
+
+            ViewBag.MemberId = new SelectList(db.Members.Where(u => u.MemberId.Equals(userId)), "MemberId", "FirstName");
             return View();
         }
 
         // POST: MemberBankDetails/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "MemberBankDetailId,DateCreated,Active,MemberId,BankName,AccountNumber,AccounName,BVN,SortCode")] MemberBankDetail memberBankDetail)
+        public async Task<ActionResult> Create( MemberBankDetail memberBankDetail)
         {
             if (ModelState.IsValid)
             {
@@ -57,8 +67,9 @@ namespace TFMCooperativeSociety.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+            var userId = User.Identity.GetUserId();
 
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "BusinessStreet", memberBankDetail.MemberId);
+            ViewBag.MemberId = new SelectList(db.Members.Where(u=>u.MemberId.Equals(userId)), "MemberId", "FirstName", memberBankDetail.MemberId);
             return View(memberBankDetail);
         }
 
@@ -74,16 +85,18 @@ namespace TFMCooperativeSociety.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "BusinessStreet", memberBankDetail.MemberId);
+            var userId = User.Identity.GetUserId();
+
+            ViewBag.MemberId = new SelectList(db.Members.Where(u => u.MemberId.Equals(userId)), "MemberId", "FirstName", memberBankDetail.MemberId);
             return View(memberBankDetail);
         }
 
         // POST: MemberBankDetails/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "MemberBankDetailId,DateCreated,Active,MemberId,BankName,AccountNumber,AccounName,BVN,SortCode")] MemberBankDetail memberBankDetail)
+        public async Task<ActionResult> Edit(MemberBankDetail memberBankDetail)
         {
             if (ModelState.IsValid)
             {
@@ -91,7 +104,10 @@ namespace TFMCooperativeSociety.Controllers
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberId = new SelectList(db.Members, "MemberId", "BusinessStreet", memberBankDetail.MemberId);
+
+            var userId = User.Identity.GetUserId();
+
+            ViewBag.MemberId = new SelectList(db.Members.Where(u => u.MemberId.Equals(userId)), "MemberId", "BusinessStreet", memberBankDetail.MemberId);
             return View(memberBankDetail);
         }
 
@@ -129,5 +145,7 @@ namespace TFMCooperativeSociety.Controllers
             }
             base.Dispose(disposing);
         }
+
+
     }
 }

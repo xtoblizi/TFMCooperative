@@ -47,7 +47,7 @@ namespace TFMCooperativeSociety.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "CooperativeBankDetailId,DateCreated,Active,BankName,AccountNumber,AccounName,BVN,SortCode")] CooperativeBankDetail cooperativeBankDetail)
+        public async Task<ActionResult> Create( CooperativeBankDetail cooperativeBankDetail)
         {
             if (ModelState.IsValid)
             {

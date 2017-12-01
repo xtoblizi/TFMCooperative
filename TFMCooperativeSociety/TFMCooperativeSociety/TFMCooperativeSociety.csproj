@@ -2361,6 +2361,7 @@
     <Content Include="Views\Shared\_FrontEnd.cshtml" />
     <Content Include="Views\Shared\FrontEndPartials\_Carousel.cshtml" />
     <Content Include="Views\Shared\FrontEndPartials\_Footer.cshtml" />
+    <Content Include="Views\MemberBankDetails\MemberIndex.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
