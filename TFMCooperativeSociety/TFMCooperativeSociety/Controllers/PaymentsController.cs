@@ -35,6 +35,32 @@ namespace TFMCooperativeSociety.Controllers
             return View(await payments.ToListAsync());
         }
 
+        [Authorize(Roles = "Members")]
+        public ActionResult PaymentVierificationStatus()
+        {
+            var userId = User.Identity.GetUserId();
+            var payments = db.Payments.Include(p => p.Member).Where(p => p.MemberId == userId);
+
+            if (payments.Any())
+            {
+                bool verified = payments.FirstOrDefault().IsApproved;
+                
+                if (verified == true)
+                {
+                    ViewBag.Message = "Hello , Your Payments has been verified \n You are therefore qualified to recieve loan when it is allocated \n Thank  you.... \n sigend TFMCooperative Mgt.";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.Message = "Hello , Your Payments has not been verified yet \n Please be patient the manageent would verify it in 24-48 working hours \n Thank you.... \n sigend TFMCooperative Mgt.";
+                    return View();
+                }
+
+            }
+            ViewBag.Message = "Not sure you have paid yet \n \n Do well to make payment on time and be qualified for loan recieval. \n Membership is First Come First Serve... ";
+            return View();
+        }
+
 
         // GET: Payments/Details/5
         public async Task<ActionResult> Details(int? id)
@@ -65,7 +91,7 @@ namespace TFMCooperativeSociety.Controllers
                 //ViewBag.MemberID = new SelectList(db.Members.Where(m => m.MemberId.Equals(user)),
                 //       "MemberId", "FirstName");
 
-                ViewBag.MemberId = new SelectList(db.Members.Where(m => m.MemberId == userId), "MemberId", "FirstName");
+                ViewBag.MemberId = new SelectList( db.Members.Where(m => m.MemberId == userId), "MemberId", "FirstName");
                 return View();
             }
 
@@ -135,6 +161,8 @@ namespace TFMCooperativeSociety.Controllers
             ViewBag.Message = " Payment Approval not succesful, Try again";
             return View(payment);
         }
+
+
 
 
         // GET: Payments/Edit/5

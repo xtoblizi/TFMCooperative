@@ -29,6 +29,14 @@ namespace TFMCooperativeSociety.Models
         [DataType(DataType.Date)]
         public DateTime DateOfPayment { get; set; }
 
+        [DisplayName("Depositor's Name")]
+        [Required]
+        public string DepositorName { get; set; }
+
+        [Required]
+        [Phone]
+        public string PhoneNumber { get; set; }
+
         [ScaffoldColumn(false)]
         public DateTime DateCreated
         {
