@@ -47,17 +47,17 @@ namespace TFMCooperativeSociety.Controllers
                 
                 if (verified == true)
                 {
-                    ViewBag.Message = "Hello , Your Payments has been verified \n You are therefore qualified to recieve loan when it is allocated \n Thank  you.... \n sigend TFMCooperative Mgt.";
+                    ViewBag.Message = "Hello , Your Payments has been verified "+"\n"+" You are therefore qualified to recieve loan when it is allocated "+"\n"+" Thank  you...."+"\n"+ "sigend TFMCooperative Mgt.";
                     return View();
                 }
                 else
                 {
-                    ViewBag.Message = "Hello , Your Payments has not been verified yet \n Please be patient the manageent would verify it in 24-48 working hours \n Thank you.... \n sigend TFMCooperative Mgt.";
+                    ViewBag.Message = "Hello , Your Payments has not been verified yet " + "\n"+" Please be patient the manageent would verify it in 24-48 working hours" + "\n" + " Thank you.... "+"\n"+" sigend TFMCooperative Mgt.";
                     return View();
                 }
 
             }
-            ViewBag.Message = "Not sure you have paid yet \n \n Do well to make payment on time and be qualified for loan recieval. \n Membership is First Come First Serve... ";
+            ViewBag.Message = "Not sure you have paid yet." +" "+Environment.NewLine +" "+ "Do well to make payment on time and be qualified for loan recieval." + Environment.NewLine +" "+"Membership is First Come First Serve... ";
             return View();
         }
 

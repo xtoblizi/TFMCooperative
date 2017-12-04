@@ -68,6 +68,8 @@ namespace TFMCooperativeSociety.Models
 
         public DbSet<LoanStatus> LoanStatus { get; set; }
 
+        public DbSet<Contact> Contacts { get; set; }
+
 
     }
 }

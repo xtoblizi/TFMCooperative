@@ -5,15 +5,17 @@ namespace TFMCooperativeSociety.Models
 {
     public class RegisterMemberViewModel
     {
-
+        [Required]
         [Display(Name ="First Name")]
         [StringLength(100,ErrorMessage ="First Name Characters must not be more than 100")]
         public string FirstName { get; set; }
 
+        [Required]
         [Display(Name = "Middle Name")]
         [StringLength(100, ErrorMessage = "Middle Name Characters must not be more than 100")]
         public string MiddleName { get; set; }
 
+        [Required]
         [Display(Name = "Last Name")]
         [StringLength(100, ErrorMessage = "Last Name Characters must not be more than 100")]
         public string LastName { get; set; }

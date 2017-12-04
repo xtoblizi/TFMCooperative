@@ -1,0 +1,58 @@
+﻿@model TFMCooperativeSociety.Models.LoanStatus
+
+@{
+    ViewBag.Title = "LoanStatusView";
+    Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
+}
+<br />
+
+<h2>Loan Status</h2>
+<br />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>@ViewBag.Message</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.LoanStatusId)
+
+        <div class="form-group">
+            @Html.Label("Title To Update",  htmlAttributes: new { @class = "control-label col-md-2" } )
+            <div class="col-md-6">
+                @Html.DisplayFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Date Of Update", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DisplayFor(model => model.DateCreated, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DateCreated, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.Label("Message", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.DisplayFor(model => model.MessageContent,new { @class = "form-control textarea" } )
+                @Html.ValidationMessageFor(model => model.MessageContent, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*<div class="form-group">
+            <div class="col-md-offset-2 col-md-6">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>*@
+    </div>
+}
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

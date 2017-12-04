@@ -182,6 +182,7 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\BankDetail.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Models\DropDown.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\LoanStatus.cs" />
@@ -2363,6 +2364,10 @@
     <Content Include="Views\Shared\FrontEndPartials\_Footer.cshtml" />
     <Content Include="Views\MemberBankDetails\MemberIndex.cshtml" />
     <Content Include="Views\Payments\PaymentVierificationStatus.cshtml" />
+    <Content Include="Views\LoanStatus\LoanStatusView.cshtml" />
+    <Content Include="Views\Shared\_LoginLayout.cshtml" />
+    <Content Include="Views\Account\_SignUpPartial.cshtml" />
+    <Content Include="Views\Account\_SignInPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,6 +21,23 @@ namespace TFMCooperativeSociety.Controllers
             return View(await db.LoanStatus.ToListAsync());
         }
 
+        public async Task<ActionResult> LoanStatusView()
+        {
+            var retrieve = db.LoanStatus.Where(l => l.LoanStatusId > 1);
+            if (retrieve.Any())
+            {
+                var result = retrieve.First(p => p.LoanStatusId == 1);
+
+                ViewBag.Message = "The Status of the currently applied loan is as follows";
+                return View(result);
+
+            }
+
+            ViewBag.Message = "Loan status is yet to be updated, It would be done soon. \n Thanks ";
+            return View();
+
+        }
+
         // GET: LoanStatus/Details/5
         public async Task<ActionResult> Details(int? id)
         {

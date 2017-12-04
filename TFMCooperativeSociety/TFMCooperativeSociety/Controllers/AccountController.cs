@@ -56,14 +56,25 @@ namespace TFMCooperativeSociety.Controllers
             }
         }
 
+        public PartialViewResult _SignInPartial()
+        {
+            return PartialView();
+        }
 
+        public PartialViewResult _SignUpPartial()
+        {
+            return PartialView();
+        }
 
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login(string returnUrl, string message ="")
         {
             ViewBag.ReturnUrl = returnUrl;
+
+            ViewBag.Message = message;
+           
             return View();
         }
 
@@ -98,7 +109,7 @@ namespace TFMCooperativeSociety.Controllers
                     case SignInStatus.Failure:
                     default:
                         ModelState.AddModelError("", "Invalid login attempt.");
-                        return View(model);
+                        return View( model);
                 }
 
             } // end if
@@ -153,48 +164,48 @@ namespace TFMCooperativeSociety.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //[AllowAnonymous]
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
         //
         // POST: /Account/Register
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = new ApplicationUser {
-                    UserName = model.Email,
-                    Email = model.Email,
-                    FirstName = model.FirstName,
-                    MiddleName = model.MiddleName,
-                    LastName= model.LastName,
-                };
-                var result = await UserManager.CreateAsync(user, model.Password);
-                await this.UserManager.AddToRoleAsync(user.Id,"Members");
-                if (result.Succeeded)
-                {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+        //[HttpPost]
+        //[AllowAnonymous]
+        //[ValidateAntiForgeryToken]
+        //public async Task<ActionResult> Register(RegisterViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        var user = new ApplicationUser {
+        //            UserName = model.Email,
+        //            Email = model.Email,
+        //            FirstName = model.FirstName,
+        //            MiddleName = model.MiddleName,
+        //            LastName= model.LastName,
+        //        };
+        //        var result = await UserManager.CreateAsync(user, model.Password);
+        //        await this.UserManager.AddToRoleAsync(user.Id,"Members");
+        //        if (result.Succeeded)
+        //        {
+        //            await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+        //            // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+        //            // Send an email with this link
+        //            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+        //            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+        //            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
-                }
-                AddErrors(result);
-            }
+        //            return RedirectToAction("Index", "Home");
+        //        }
+        //        AddErrors(result);
+        //    }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
-        }
+        //    // If we got this far, something failed, redisplay form
+        //    return View(model);
+        //}
         [AllowAnonymous]
         public PartialViewResult ContinueRegistration()
         {
@@ -207,24 +218,18 @@ namespace TFMCooperativeSociety.Controllers
             return View();
         }
 
-
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterMember(RegisterMemberViewModel model)
         {
 
-
             if (ModelState.IsValid)
             {
-                //ViewBag.Message = "Model state not valid";
-                //return View();
-
                 if (!_db.Users.Any(u => u.Email == model.Email))
                 {
                     try
                     {
-
                         var user = new ApplicationUser
                         {
                             UserName = model.Email,
@@ -252,11 +257,17 @@ namespace TFMCooperativeSociety.Controllers
 
                             await this.UserManager.AddToRoleAsync(user.Id, "Members");
 
+                            // For more information on how to enable account confirmation and password reset please visit
+                            // http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>")
 
                             // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
 
                             ViewBag.Message = "Registration Successful Sign In Now, To Continue";
-                            return RedirectToAction("Login", "Account");
+                            return RedirectToAction("Login", "Account" , new { message = ViewBag.Message});
                         }
                     }
                     catch (Exception ex)
@@ -265,31 +276,17 @@ namespace TFMCooperativeSociety.Controllers
                         return View(model);
                     }
                 }
-                else
-                {
-                    ViewBag.Message = "This Email" +"" +""+model.Email+""+" already exist, Login or use another email address";
-                    return View();
-                }
-
+                               
+                    ViewBag.Message = "This Email" + "" + "" + model.Email + "" + " already exist, Login or use another email address";
+                    return View(); 
             }
 
-            // For more information on how to enable account confirmation and password reset please visit
-           // http://go.microsoft.com/fwlink/?LinkID=320771
-            // Send an email with this link
-            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>")
-
-            // If we got this far, something failed, redisplay form
-
-            ViewBag.Message = "Unknown error";
-            return View();
-
-
+            ViewBag.Message = "Verify your entry ";
+            return View(model);
         }
+                   
 
-        //
-        // GET: /Account/ConfirmEmail
+         //GET: /Account/ConfirmEmail
         [AllowAnonymous]
         public async Task<ActionResult> ConfirmEmail(string userId, string code)
         {
