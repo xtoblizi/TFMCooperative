@@ -11,7 +11,7 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <form>
+                    <form action="@Url.Action("Create","Contacts")" method="post">
                         <div class="form-group">
                             <label for="form-name">Name</label>
                             <input type="email" class="form-control" id="form-name" placeholder="Name">
@@ -43,10 +43,11 @@
                         <a class="fa fa-linkedin footer-socialicon" target="_blank" href="https://plus.google.com/"></a>
                     </p>
                     <div class="clearfix"></div>
-                    <h3 class="text-primary">Address</h3>
-                    <p>54, North Road, PA 45086, USA</p>
-                    <p>+1 888 455 6677</p>
-                    <p><a href="mailto:mail@example.com">mail@example.com</a></p>
+                    <h3 class="text-primary">Phone</h3>
+                    <p> Chineye :08168881467, </p>
+                    <p> Call: 07038709332</p>
+                    <p> Call: 07067161910</p>
+                    <p><a href="mailto:support@TFMCooperative.com">support@TFMCooperative.com</a></p>
                     <div class="clearfix"></div>
                     <h3 class="text-primary">Open Hours</h3>
                     <p>Monday - Friday | 9am-5pm</p>
@@ -55,7 +56,7 @@
             </div>
         </div>
     </div>
-    <div id="googlemap"></div>
+    <div id="googlemap" hidden="googlemap"></div>
 
 
 <script src="~/FrontEnd/js/jquery.min.js"></script>
