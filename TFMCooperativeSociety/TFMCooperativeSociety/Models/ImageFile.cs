@@ -15,9 +15,12 @@ namespace TFMCooperativeSociety.Models
         public string FileExt { get; set; }
 
         public string FilePath { get; set; }
+
         public HttpPostedFileBase Image { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime DateCreate { get; set; }=DateTime.Now;
+
+        public virtual ApplicationUser AppUser { get; set; }
     }
 }
