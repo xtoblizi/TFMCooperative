@@ -20,7 +20,12 @@ namespace TFMCooperativeSociety.Models
         [StringLength(100, ErrorMessage = "use a simpler email address")]
         public string Email { get; set; }
 
-    
+        public bool IsSubsribed { get; set; } = false;
+
+        [DataType(DataType.MultilineText)]
         public string Message { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }

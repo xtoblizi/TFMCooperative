@@ -1913,7 +1913,7 @@
     <Content Include="FrontEnd\fonts\font-awesome\css\font-awesome.css" />
     <Content Include="FrontEnd\fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="FrontEnd\fonts\font-awesome\fonts\fontawesome-webfont.svg" />
-    <Content Include="FrontEnd\images\agriculture2.jpg" />
+    <Content Include="FrontEnd\images\agricultureRESIZED.jpg" />
     <Content Include="FrontEnd\images\carousel1.jpg" />
     <Content Include="FrontEnd\images\carousel2.jpg" />
     <Content Include="FrontEnd\images\carousel3.jpg" />
