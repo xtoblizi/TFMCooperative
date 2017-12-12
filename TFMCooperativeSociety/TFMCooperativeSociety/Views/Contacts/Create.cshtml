@@ -1,0 +1,89 @@
+﻿@model TFMCooperativeSociety.Models.Contact
+@{
+    ViewBag.Title = "Contact";
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
+}
+
+<br/><br/>
+<div class="container-contact">
+    <div class="container">
+        <div>
+            <h2 class="text-primary">Get In Touch With Us</h2>
+
+            <h3 class="text-primary Bold"> @ViewBag.Message</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <form action="@Url.Action("Create", "Contacts")" method="post">
+                    @Html.AntiForgeryToken()
+
+                    <div class="form-group">
+                        <label for="form-name">Name</label>
+                        @*<input type="email" class="form-control" id="form-name" placeholder="Name">*@
+                        @Html.TextBoxFor(c => c.FirstName, new { @class = "input form-control", placeholder = "Name", required = true })
+                        @Html.ValidationMessageFor(c => c.FirstName)
+                    </div>
+                    <div class="form-group">
+                        <label for="form-email">Email Address</label>
+                        @*<input type="email" class="form-control" id="form-email" placeholder="Email Address">*@
+                        @Html.TextBoxFor(c => c.Email, new { @class = "input form-control", placeholder = "Email Address", required = true, type = "email" })
+                        @Html.ValidationMessageFor(c => c.Email)
+                    </div>
+                    @*<div class="form-group">
+                <label for="form-subject">Telephone</label>
+                @*<input type="text" class="form-control" id="form-subject" placeholder="Subject">
+                @Html.TextBoxFor(c => c., new { @class = "input form-control", placeholder = "Name", })
+            </div>*@
+                    <div class="form-group">
+                        <label for="form-message">Email your Message</label>
+                        @*<textarea class="form-control" id="form-message" placeholder="Message"></textarea>*@
+                        @Html.TextAreaFor(c => c.Message, new { @class = "textarea form-control", placeholder = "Message" })
+                        @Html.ValidationMessageFor(c =>c.Message)
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Submit" />
+                    <br /><br />
+                </form>
+            </div>
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-4">
+                <h3 class="text-primary">Social</h3>
+                <p style="margin-top: 20px;">
+                    <a class="fa fa-twitter footer-socialicon" target="_blank" href="https://twitter.com/"></a>
+                    <a class="fa fa-facebook footer-socialicon" target="_blank" href="https://www.facebook.com/"></a>
+                    <a class="fa fa-google-plus footer-socialicon" target="_blank" href="https://plus.google.com/"></a>
+                    <a class="fa fa-linkedin footer-socialicon" target="_blank" href="https://plus.google.com/"></a>
+                </p>
+                <div class="clearfix"></div>
+                <h3 class="text-primary">Phone</h3>
+                <p> Chineye :08168881467, </p>
+                <p> Call: 07038709332</p>
+                <p> Call: 07067161910</p>
+                <p><a href="mailto:support@TFMCooperative.com">support@TFMCooperative.com</a></p>
+                <div class="clearfix"></div>
+                <h3 class="text-primary">Open Hours</h3>
+                <p>Monday - Friday | 9am-5pm</p>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div id="googlemap" hidden="googlemap"></div>
+
+
+<script src="~/FrontEnd/js/jquery.min.js"></script>
+<script src="~/FrontEnd/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript">
+        jQuery(function ($) {
+            // Google Maps setup
+            var googlemap = new google.maps.Map(
+                document.getElementById('googlemap'),
+                {
+                    center: new google.maps.LatLng(44.5403, -78.5463),
+                    zoom: 8,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                }
+            );
+        });
+</script>
