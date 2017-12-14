@@ -30,12 +30,12 @@ namespace TFMCooperativeSociety.Controllers
             return View();
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "You can reach us on via the following means.";
+        //public ActionResult Contact()
+        //{
+        //    ViewBag.Message = "You can reach us on via the following means.";
 
-            return View();
-        }
+        //    return View();
+        //}
 
         public PartialViewResult _MemberDashBoard()
         {

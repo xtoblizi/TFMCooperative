@@ -15,18 +15,27 @@
     @Html.ValidationSummary()
 
     <h1> Login Form </h1>
-    <div>
-        @*<input type="text" class="form-control" placeholder="Email" required="" />*@
+        <div>
+            @*<input type="text" class="form-control" placeholder="Email" required="" />*@
 
-        @Html.TextBoxFor(m => m.Email, new { @class = "input form-control", placeholder = "Email", type = "Email" })
-        @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
-    </div>
-    <div>
+            @Html.TextBoxFor(m => m.Email, new { @class = "input form-control", placeholder = "Email", type = "Email" })
+            @Html.ValidationMessageFor(m => m.Email, null, new { @class = "text-danger" })
+        </div>
 
-        @Html.TextBoxFor(m => m.Password, new { @class = "input form-control", placeholder = "Password", type = "Password" })
-        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
-    </div>
-    <div>
+        <div>
+
+            @Html.TextBoxFor(m => m.Password, new { @class = "input form-control", placeholder = "Password", type = "Password" })
+            @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+        </div>
+
+        <div>
+
+            @Html.Label("Remember Me")
+            @Html.CheckBoxFor(m => m.RememberMe)
+
+        </div>
+
+        <div>
         <input type="submit" name="login" value="Login" class="btn btn-default submit" style="color:darkgreen; font-weight:bold" />
 
         @*<a class="btn btn-default submit" href="index.html">Log in</a>*@
@@ -44,13 +53,13 @@
         <p>
             <h1><i class="fa fa-paw" style="font-size: 26px;"></i> TFMC</h1>
 
-            <span> Tech Farmers Mulltipurpose Cooperative Society @DateTime.Now.Year <br /> (c) All rights Reserved </span> 
+            <span> Tech Farmers Mulltipurpose Cooperative Society @DateTime.Now.Year <br /> (c) All rights Reserved </span>
 
         </p>
 
     </div>
-   
-     </form> 
+
+     </form>
 </div>
 
 @Scripts.Render("~/bundles/jquery")

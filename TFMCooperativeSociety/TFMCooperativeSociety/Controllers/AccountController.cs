@@ -93,11 +93,12 @@ namespace TFMCooperativeSociety.Controllers
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
 
-             var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email.Equals(model.Email));
-            if (user!=null)
-            {
+             //var user =  _db.Users.AsNoTracking().Where(u => u.Email.Equals(model.Email));
+            //if (user.Any())
+            //{
 
-            var result = await SignInManager.PasswordSignInAsync(user.UserName, model.Password, model.RememberMe, shouldLockout: false);
+            
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
                 switch (result)
                 {
                     case SignInStatus.Success:
@@ -112,12 +113,12 @@ namespace TFMCooperativeSociety.Controllers
                         return View( model);
                 }
 
-            } // end if
-            else
-            {
-                ViewBag.Message = "Signin details incorrect";
-                return View(model);
-            }
+             // end if
+            //else
+            //{
+            //    ViewBag.Message = "Signin details incorrect";
+            //    return View(model);
+            //}
         }
         //
         // GET: /Account/VerifyCode
@@ -272,7 +273,7 @@ namespace TFMCooperativeSociety.Controllers
                     }
                     catch (Exception ex)
                     {
-                        ViewBag.Message = "Registration was NOT Succesul, Try again " + "" + ex;
+                        ViewBag.Message = "Registration was NOT Successful, Try again " + "" + ex;
                         return View(model);
                     }
                 }
