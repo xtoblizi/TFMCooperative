@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -20,8 +19,6 @@ namespace TFMCooperativeSociety.Models
 
         [StringLength(100, ErrorMessage = "Last name cannot be longer than 100 characters.")]
         public string MiddleName { get; set; }
-
-        public virtual ICollection<ImageFile> ImageFiles  { get; set; }
 
  
 
