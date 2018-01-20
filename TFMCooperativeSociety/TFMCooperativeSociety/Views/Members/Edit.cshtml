@@ -1,11 +1,13 @@
 ﻿@model TFMCooperativeSociety.Models.Member
+@using Microsoft.AspNet.Identity
+
 @{
     Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
 }
 
 
 <div class="">
-    <div class="page-title">
+    @*<div class="page-title">
         <div class="title_left">
             <h3>Member Regitration</h3>
         </div>
@@ -19,13 +21,13 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>*@
     <div class="clearfix"></div>
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2> MemberResgiration <small>Sessions</small></h2>
+                    <h2> Edit and Complete Registration <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li>
                             <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
@@ -47,10 +49,11 @@
                     </ul>
                     <div class="clearfix"></div>
                 </div>
+                <h4 style="color:darkred"> @ViewBag.Message</h4>
                 <div class="x_content">
 
                     <!-- Smart Wizard -->
-                    <p>Fill in appropraite details and correct details.</p>
+                  
                     <div id="wizard" class="form_wizard wizard_horizontal">
                         <ul class="wizard_steps">
                             <li>
@@ -90,16 +93,29 @@
 
                             <div id="step-1">
 
+
+
+                                <div class="form-group">
+                                    
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.HiddenFor(model=>model.MemberId)
+
+                                        @*@Html.EditorFor(model => model.Me, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger", })*@
+
+
+                                        @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
+                                    </div>
+                                </div>
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                        Member Identity <span class="required">*</span>
+                                        Email <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @Html.EditorFor(model => model.MemberId, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
-                                        @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger", })
+                                        @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger", })
 
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
@@ -149,6 +165,20 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                        Phone Number <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+
+                                        @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger", })
+
+
+                                        @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                         Gender <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -177,7 +207,7 @@
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">
-                                        Are you a TCWC Member ? <span class="required">*</span>
+                                       TCWC Member ? <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         @Html.EditorFor(model => model.ISTCWC, new { @class = "input form-control col-md-7 col-xs-12", id = "last-name" })
@@ -187,7 +217,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter TCWC MemberCode</label>
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">TCWC MemberCode</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         @Html.EditorFor(model => model.TCWCIDCode, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
                                         @Html.ValidationMessageFor(model => model.TCWCIDCode, "", new { @class = "text-danger" })
@@ -197,22 +227,22 @@
                                     </div>
                                 </div>
                                 @*<div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <div id="gender" class="btn-group" data-toggle="buttons">
-                                                <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                                                </label>
-                                                <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                    <input type="radio" name="gender" value="female"> Female
-                                                </label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender</label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <div id="gender" class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
+                            </label>
+                            <label class="btn btn-primary" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
+                                <input type="radio" name="gender" value="female"> Female
+                            </label>
 
 
-                                                @Html.HiddenFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.HiddenFor(model => model.Gender, new { htmlAttributes = new { @class = "form-control" } })
 
-                                            </div>
-                                        </div>
-                                    </div>*@
+                        </div>
+                    </div>
+                </div>*@
 
 
                             </div>
@@ -223,17 +253,19 @@
 
                             <div id="step-2">
                                 <h2 class="StepTitle">Address Details </h2>
-                                <div class="form-group">
+
+                                <p style="text-decoration:underline; font-size:15px; color:dimgray">
+                                    <b>
+                                        Residential Address
+                                    </b>
+                                </p>
+                                @*<div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
 
-                                        <p style="text-decoration:underline; font-size:15px; color:dimgray">
-                                            <b>
-                                                Residential Address
-                                            </b>
-                                        </p>
+                                        
                                     </label>
 
-                                </div>
+                                </div>*@
 
 
                                 <div class="form-group">
@@ -300,21 +332,17 @@
 
                                 <!-- Business Address Details-->
                                 <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-
-                                        <p style="text-decoration:underline; font-size:15px; color:dimgray">
-                                            <b>
-                                                Business Address
-                                            </b>
-                                        </p>
-
-                                    </label>
-
+                                    <p style="text-decoration:underline; font-size:15px; color:dimgray">
+                                        <b>
+                                            Business Address
+                                        </b>
+                                    </p>
+                                    
                                 </div>
                                 <div class="form-group">
-                                   
+
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                        Business Street <span class="required">*</span> 
+                                        Business Street <span class="required">*</span>
                                     </label>
 
                                     <div class="col-md-6 col-sm-6 col-xs-12">
@@ -364,38 +392,34 @@
                             <div id="step-3">
                                 <h2 class="StepTitle">Step 3 Content</h2>
                                 <p>
-                                    If you here ... Then you have completely filled up your member details registration  <br />
-                                    <br /> <br />
+                                    <br />
                                     Click the Submit buttton below to submit your filled in details.
-
-                                </p>
-                                <p>
 
                                 </p>
 
                                 <div class="form-group">
                                     <div class="col-md-offset-2 col-md-10">
-                                        <input type="submit" value="Submit" class="btn btn-default" />
+                                        <input type="submit" value="Submit" class="btn btn-group-lg" />
                                     </div>
                                 </div>
 
                             </div>
 
                             @*<div id="step-4">
-                                    <h2 class="StepTitle">Step 4 Content</h2>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                        in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                    </p>
-                                </div>*@
+                <h2 class="StepTitle">Step 4 Content</h2>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                </p>
+            </div>*@
 
 
 
@@ -539,7 +563,7 @@
 </div>
 
 
-<script src="~/Content/js/bootstrap.min.js"></script>
+@*<script src="~/Content/js/bootstrap.min.js"></script>*@
 <!-- bootstrap progress js -->
 @*<script src="~/Content/js/progressbar/bootstrap-progressbar.min.js"></script>*@
 <!-- icheck -->

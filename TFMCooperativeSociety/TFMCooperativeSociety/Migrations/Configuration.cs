@@ -18,19 +18,19 @@ namespace TFMCooperativeSociety.Migrations
 
         protected override void Seed(TFMCooperativeDB context)
         {
-            if (!context.Roles.Any(r => r.Name == "Administrator"))
+            if (!context.Roles.Any(r => r.Name == "Administrators"))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Administrator" };
+                var role = new IdentityRole { Name = "Administrators" };
 
                 manager.Create(role);
             }
-            if (!context.Roles.Any(r => r.Name == "Member"))
+            if (!context.Roles.Any(r => r.Name == "Members"))
             {
                 var store = new RoleStore<IdentityRole>(context);
                 var manager = new RoleManager<IdentityRole>(store);
-                var role = new IdentityRole { Name = "Member" };
+                var role = new IdentityRole { Name = "Members" };
 
                 manager.Create(role);
             }
@@ -49,9 +49,9 @@ namespace TFMCooperativeSociety.Migrations
                 };
 
                 manager.Create(user, "admin12345");
-                manager.AddToRole(user.Id, "Administrator");
+                manager.AddToRole(user.Id, "Administrators");
             }
-           
+
 
             if (!context.Users.Any(u => u.UserName == "ebukavictor@TFMCooperative.com"))
             {
@@ -67,13 +67,13 @@ namespace TFMCooperativeSociety.Migrations
                 };
 
                 manager.Create(user, "admin12345");
-                manager.AddToRole(user.Id, "Administrator");
+                manager.AddToRole(user.Id, "Administrators");
             }
 
 
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data. E.g.
             //
             //    context.People.AddOrUpdate(

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<TFMCooperativeSociety.Models.MemberBankDetail>
+
+@{
+    ViewBag.Title = "MemberIndex";
+    Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
+}
+
+<h2>Your Bank Details</h2>
+<br/> <br/>
+<p style="color:darkgreen; font-weight: bold; font-size: 15px; text-decoration: underline" >
+    @Html.ActionLink("Add Bank Details", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.BusinessStreet)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BankName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccountNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AccounName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BVN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SortCode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Member.BusinessStreet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BankName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccountNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.AccounName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BVN)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SortCode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MemberBankDetailId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MemberBankDetailId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MemberBankDetailId })
+        </td>
+    </tr>
+}
+
+</table>

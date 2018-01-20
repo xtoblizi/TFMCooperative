@@ -1,32 +1,154 @@
 ﻿@{
     ViewBag.Title = "Home Page";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_FrontEnd.cshtml";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div>
+
+    @Html.Partial("FrontEndPartials/_Carousel")
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+
+
+<div class="container-home">
+    <div class="container">
+
+        <div class="page-header" id="home">
+            <div class="row">
+                <div class="col-md-4">
+                    <h1>WELCOME</h1>
+                    <h4>To TFM Cooperative Society</h4>
+                    <br />
+                    <img class="img-responsive" src="~/FrontEnd/images/SMILING 585x2.jpg" />
+                    <br />
+                    <p class="text-justify">
+                        Tech farmers multipurpose cooperative society. We are a fully registered and certified cooperative organization .Our principal
+                        objective is promoting and representing the interest of our members towards attaining societal and financial betterment as individuals and also
+                        as a group, in line with principles of the cooperative.
+                        <br /> <br />
+                        We represent our members as an official body towards getting any benefit or privileges accrued to them at differs levels (Local, State, Federal).
+                        We give the representation and platform required for you to access loans, privileges , grants and other platforms that help towards business growth and financial buildiing
+
+                    </p>
+
+
+                    <h3 class="text-primary" style="font-weight: bold"> BRIEFLY ABOUT TFMCS</h3>
+
+                    <p class="text-justify">
+                        Tech farmers multipurpose cooperative society, We are established as a registered cooperative society under the
+                        Plateau State Ministry of Commerce and Industry and licensed under the Plateau state Internal Revenue Service (PSIR) .
+
+                        <br /><br />
+                        Our
+                        aim is to help in building the entrepreneurship spirit in the country and also supporting growing business.
+                        The company is committed to delivering high valued solutions to entrepreneurs and linking them to business opportunities,
+                        profitable ventures and money-making ideas.
+                    </p>
+
+
+                </div>
+                <div class="col-md-4">
+                    <h2> Membership Benefits</h2>
+                    <br />
+                    <h4 class="text-primary" style="font-weight: bold"><i class="fa fa-arrow-right" aria-hidden="true"></i> &nbsp; &nbsp; PLATFORM PROVISION</h4>
+                    <p class="text-justify">
+                        Being part of TFM Cooperative Society automatically qualifies you the benefit of the platform to access and privilege, resource or
+                        office that requires a precondition of  being Cooperative society member. This would come without any charge attached having become
+                        a member.
+
+                        <br />
+                        Of a truth there multiple programmes by international and the federal as well as state organizations(governments) that are only
+                        beneficial to individual or groups that are members of a certain Cooperative Society.
+
+                        <br /> <br />
+                        Tech Farmers cooperative society provides you this platform.
+                    </p>
+                    <br />
+                    <h4 class="text-primary" style="font-weight: bold"><i class="fa fa-arrow-right" aria-hidden="true"></i> &nbsp; &nbsp; FREE PROFESSIONAL ADVSIORY AND <BR /> &nbsp; &nbsp;&nbsp;&nbsp; CONSULATATION</h4>
+                    <p class="text-justify">
+                        Having great business ideas doesn't guarantee business success or sustainability. A number of other factors does , one major of it include
+                        Business Discipline (Leadership).
+                        <br />
+                        Business discipline only comes from having the right advisory backing. At TFMCooperative you freely get professional advisory backing
+                        and guide from
+                        top players in the industry especially in the Farming and Information Technology sector. TFMCooperative Society partners with big and record successful organizations in the I.T(sector)
+                        and the Farming sector who are readily available to provide free advisory guidance towards your business growth.. or idea creation
+                    </p>
+                    <br />
+                    <h4 class="text-primary" style="font-weight: bold"><i class="fa fa-arrow-right" aria-hidden="true"></i> ACCESS TO ROBUST RESOURCE LIBRARY</h4>
+                    <p class="text-justify">
+                        TFMCooperative is surrounded by organization and individuals that are major in the information dissemination, Capacity Building , Life couching and Business growth. Thus TFMCooperative has
+                        taken the effort to request the availability of some vital tools , business guides , softwares and also tutor videos most of which are quite expensive and scarce($20-$150).
+
+                        The GOOD NEWS! - these priceless resources would be available for free to bonafide members of this cooperative.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <blockquote class="inner-block">
+                                <span class="fa fa-2x fa-quote-right"></span>
+                                <p class="block-text">Do you Know, you can access a loan for your business or idea without a single collacteral ?.</p>
+                                <hr>
+                                <div>
+                                    <p class="pull-left">GEEP</p>
+                                    <p class="pull-right">
+                                        <span class="badge"></span>&nbsp; &nbsp;<span class="fa fa-heart"></span>
+                                    </p>
+                                </div>
+                            </blockquote>
+                        </div>
+                    </div>
+                    <div class="row" style="padding-bottom:0px">
+                        <div class="col-md-3" style="padding-bottom: 0px">
+
+                            <blockquote class="inner-block" style="background: white; color: gray; font-size: 1.14em; text-align: justify">
+                                <h4 class="text-primary" style="font-weight: bold">GEEP </h4>
+                                <div style="padding-bottom: 0px">
+
+                                    Government Enterprise and Empowerment Programme :
+                                    This is a scheme in progress by the government at
+                                    federal level to help SME(Small Medium Enterprise)
+                                    as well as youths with basic funds to start up their
+                                    business or expand their business. <br />
+
+                                    It is also useful for persons that have ideas and
+                                    concept to create or innovate.
+                                    This is fund come without a single collateral requirement.
+                                    Being pragmatic and sincere we do understand as Nigerians,
+                                    how seemingly uneasy it could get in the quest to get grants,
+                                    loans from banks and other finnacial institution for
+                                    expansion or creation of your ideas or business.
+                                    Well it just got easy with GEEP.
+                                    However this scheme is only beneficial to members of a registered
+                                    and certified Cooperative society under Ministry Of Commerce
+                                    regulated by Bank of Idustry(BOI)...
+
+                                    <a href="http://marketmoni.com.ng/about-2/">Read More </a>
+                                </div>
+                            </blockquote>
+
+                            <br />
+                        </div>
+                        </div>
+
+                    @*
+                    <div class="row text-center" style="padding-top:0px">
+                        <h3 class="text-primary text-primary">NEWSLETTER</h3>
+                        <p class="text-primary">
+                            Get Non boring and periodic updates
+                        <br />
+                    </div>
+                    <div class="row text-center">
+                        <div class="col-md-8 col-md-offset-2">
+                            <input type="text" class="form-control" placeholder="Enter your email..." />
+                            <br />
+                            <button class="button-more-primary btn" type="button" style="margin: 10px;">SUBSCRIBE</button>
+                        </div>
+                    </div>
+                   *@
+                </div>
+            </div>
+        </div>
     </div>
 </div>

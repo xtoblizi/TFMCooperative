@@ -31,11 +31,37 @@ namespace TFMCooperativeSociety.Controllers
         public async Task<ActionResult> MemberPayments()
         {
             var userId = User.Identity.GetUserId();
-            var payments = db.Payments.Include(p => p.Member).Where(p => p.MemberID == userId );
+            var payments = db.Payments.Include(p => p.Member).Where(p => p.MemberId == userId );
             return View(await payments.ToListAsync());
         }
 
-       
+        [Authorize(Roles = "Members")]
+        public ActionResult PaymentVierificationStatus()
+        {
+            var userId = User.Identity.GetUserId();
+            var payments = db.Payments.Include(p => p.Member).Where(p => p.MemberId == userId);
+
+            if (payments.Any())
+            {
+                bool verified = payments.FirstOrDefault().IsApproved;
+                
+                if (verified == true)
+                {
+                    ViewBag.Message = "Hello , Your Payments has been verified "+"\n"+" You are therefore qualified to recieve loan when it is allocated "+"\n"+" Thank  you...."+"\n"+ "sigend TFMCooperative Mgt.";
+                    return View();
+                }
+                else
+                {
+                    ViewBag.Message = "Hello , Your Payments has not been verified yet " + "\n"+" Please be patient the manageent would verify it in 24-48 working hours" + "\n" + " Thank you.... "+"\n"+" sigend TFMCooperative Mgt.";
+                    return View();
+                }
+
+            }
+            ViewBag.Message = "Not sure you have paid yet." +" "+Environment.NewLine +" "+ "Do well to make payment on time and be qualified for loan recieval." + Environment.NewLine +" "+"Membership is First Come First Serve... ";
+            return View();
+        }
+
+
         // GET: Payments/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -59,22 +85,22 @@ namespace TFMCooperativeSociety.Controllers
             // var memberDeatails = db.Members.SingleOrDefault(m => m.MemberId == userId).FirstName;
             if (userId != null)
             {
-                var user = await db.Payments.AsNoTracking().Where(u => u.MemberID.Equals(userId))
-                       .Select(s => s.MemberID).FirstOrDefaultAsync();
+                //var user = await db.Payments.AsNoTracking().Where(u => u.MemberId.Equals(userId))
+                //       .Select(s => s.MemberId).FirstOrDefaultAsync();
 
-                ViewBag.MemberID = new SelectList(db.Members.Where(m => m.MemberId.Equals(user)),
-                       "MemberId", "FirstName");
+                //ViewBag.MemberID = new SelectList(db.Members.Where(m => m.MemberId.Equals(user)),
+                //       "MemberId", "FirstName");
 
-                //ViewBag.MemberID = new SelectList(db.Members.Where(m => m.MemberId == userId), "MemberId", "FirstName");
+                ViewBag.MemberId = new SelectList( db.Members.Where(m => m.MemberId == userId), "MemberId", "FirstName");
                 return View();
             }
-           
+
                return RedirectToAction("Login", "Account");
 
         }
 
         // POST: Payments/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -86,7 +112,7 @@ namespace TFMCooperativeSociety.Controllers
 
             if (ModelState.IsValid)
             {
-                //payment.MemberID = retrievdMemberId;
+                //payment.MemberId = retrievdMemberId;
 
                 db.Payments.Add(payment);
                 await db.SaveChangesAsync();
@@ -112,7 +138,7 @@ namespace TFMCooperativeSociety.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberID);
+            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberId);
             ViewBag.Message = "";
             return View(payment);
         }
@@ -131,10 +157,12 @@ namespace TFMCooperativeSociety.Controllers
                 ViewBag.Message = "Payment Approved";
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberID);
-            ViewBag.Message = " Payment Approval not succesful, Try again"; 
+            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberId);
+            ViewBag.Message = " Payment Approval not succesful, Try again";
             return View(payment);
         }
+
+
 
 
         // GET: Payments/Edit/5
@@ -149,24 +177,24 @@ namespace TFMCooperativeSociety.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberID);
+            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberId);
             return View(payment);
         }
 
         // POST: Payments/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Payment payment)
         {
             if (ModelState.IsValid)
-            {   
+            {
                 db.Entry(payment).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
-            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberID);
+            ViewBag.MemberID = new SelectList(db.Members, "MemberId", "FirstName", payment.MemberId);
             return View(payment);
         }
 
@@ -203,6 +231,11 @@ namespace TFMCooperativeSociety.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult Approve()
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -7,7 +7,7 @@
             <!--HOME -->
             <li>
                 <a href="@Url.Action("DashBoard","Home")"><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                  
+
             </li>
 
             <!--PROFILE EDITING DETAILS-->
@@ -16,18 +16,19 @@
                 <ul class="nav child_menu" style="display: none">
                     <li>
                         <a href="@Url.Action("Edit","Members", new {id = User.Identity.GetUserId()})">Complete Biodata</a>
-                    </li>
-                    <li>
-                        <a href="@Url.Action("AddPhoneNumber","Manage")">Add PhoneNumber</a>
-                    </li>
+                       </li> 
                     <li>
                         <a href="@Url.Action("ChangePassword","Manage")">ChangePassword</a>
-                    </li>        
+                    </li>
+         
+                    <li>
+                    <a href="@Url.Action("Details","Members", new { id = User.Identity.GetUserId()})">Profile Details</a>
+                </li>
                 </ul>
             </li>
             <!--BANK DETAILS-->
             <li>
-                <a><i class="fa fa-desktop"></i> BAnk Registration <span class="fa fa-chevron-down"></span></a>
+                <a><i class="fa fa-desktop"></i> Bank Registration <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
                         <a href="@Url.Action("Create","MemberBankDetails")">Add Your BankDetails</a>
@@ -47,9 +48,9 @@
                         <a href="@Url.Action("Create","Payments")">Submit Payment</a>
                     </li>
                     <li>
-                        <a href="@Url.Action("Approve","Payments")">Payment Vwerifictaion Status</a>
+                        <a href="@Url.Action("PaymentVierificationStatus", "Payments")">Payment Verifictaion Status</a>
                     </li>
-                    
+
                 </ul>
             </li>
 
@@ -58,13 +59,15 @@
                 <a><i class="fa fa-table"></i> Inquire Info <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
-                        <a href="tables.html">Loan Status</a>
+                        <a href="@Url.Action("LoanStatusView","LoanStatus")">Loan Status</a>
                     </li>
                     <li>
-                        <a href="tables_dynamic.html">Bank Account Details</a>
+                        <a href="@Url.Action("Index","")">Bank Account Details</a>
                     </li>
                 </ul>
             </li>
+
+     </ul>
     </div>
     <div class="menu_section">
         <h3>Live On</h3>

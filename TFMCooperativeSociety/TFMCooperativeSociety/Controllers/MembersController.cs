@@ -68,6 +68,8 @@ namespace TFMCooperativeSociety.Controllers
                 id = User.Identity.GetUserId();
             }
             Member member = await db.Members.FindAsync(id);
+           
+           
             if (member == null)
             {
                 return HttpNotFound();
@@ -85,22 +87,22 @@ namespace TFMCooperativeSociety.Controllers
             if (ModelState.IsValid)
             {
                 member.Gender = member.GenderList.ToString();
+                member.StateOfOrigin = member.StateOfOriginList.ToString();
+
                 if (
                        member.DateOfBirth != null && member.BusinessStreet != null && member.Gender != null &&
                        member.PhoneNumber != null && member.BusinessCity != null && member.BusinessState != null
                     )
                 {
                     member.CompletedRegistration = true;
-                        
-                }      
 
-                var dbState = db.Entry(member).State;
-                    
-                dbState =  EntityState.Modified;
-                
+                }
+
+                db.Entry(member).State = EntityState.Modified;
+
                 await db.SaveChangesAsync();
 
-                ViewBag.Message = "Profile registration details successfully captured. /n Proceed to adding other details such as your bank details and Payment details";
+                ViewBag.Message = "Profile registration details successfully captured.";
                 return View();
             }
 
