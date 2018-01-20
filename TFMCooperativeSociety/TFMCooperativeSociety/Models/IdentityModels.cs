@@ -21,7 +21,7 @@ namespace TFMCooperativeSociety.Models
         [StringLength(100, ErrorMessage = "Last name cannot be longer than 100 characters.")]
         public string MiddleName { get; set; }
 
-        public virtual ICollection<ImageFile> ImageFiles  { get; set; }
+       // public virtual ICollection<ImageFile> ImageFiles  { get; set; }
 
  
 
