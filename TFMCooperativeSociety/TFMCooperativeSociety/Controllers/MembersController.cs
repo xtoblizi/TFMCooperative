@@ -9,13 +9,26 @@ using System.Web;
 using System.Web.Mvc;
 using TFMCooperativeSociety.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace TFMCooperativeSociety.Controllers
 {
     public class MembersController : Controller
     {
         private TFMCooperativeDB db = new TFMCooperativeDB();
+        private ApplicationUserManager _userManager;
 
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
         // GET: Members
         public async Task<ActionResult> Index()
         {
@@ -44,20 +57,73 @@ namespace TFMCooperativeSociety.Controllers
         }
 
         // POST: Members/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(Member member)
+        public async Task<ActionResult> Create(Member model)
         {
             if (ModelState.IsValid)
             {
-                db.Members.Add(member);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
+                if (!db.Users.Any(u => u.Email == model.Email))
+                {
+                    try
+                    {
+                        var user = new ApplicationUser
+                        {
+                            UserName = model.Email,
+                            Email = model.Email,
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.FirstName,
+
+                        };
+                        var result = await UserManager.CreateAsync(user, model.Password);
+
+                        if (result.Succeeded)
+                        {
+                            var member = new Member
+                            {
+                                MemberId = user.Id,
+                                Email = model.Email,
+                                FirstName = model.FirstName,
+                                MiddleName = model.MiddleName,
+                                LastName = model.LastName,
+                                Passport = model.Passport,
+                                ImageUrl = model.ImageUrl
+
+                            };
+
+                            db.Members.Add(member);
+                            await db.SaveChangesAsync();
+
+                            await this.UserManager.AddToRoleAsync(user.Id, "Members");
+
+                            // For more information on how to enable account confirmation and password reset please visit
+                            // http://go.microsoft.com/fwlink/?LinkID=320771
+                            // Send an email with this link
+                            // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                            // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                            // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>")
+
+                            // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
+
+                            ViewBag.Message = "Registration Successful Sign In Now, To Continue";
+                            return View();
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ViewBag.Message = "Registration was NOT Succesul, Try again " + "" + ex;
+                        return View(model);
+                    }
+                }
+                ViewBag.Message = "This Email" + "" + "" + model.Email + "" + " already exist, Login or use another email address";
+                return View();
             }
 
-            return View(member);
+            ViewBag.Message = "Verify your entry ";
+            return View(model);
         }
 
         // GET: Members/Edit/5
@@ -68,8 +134,8 @@ namespace TFMCooperativeSociety.Controllers
                 id = User.Identity.GetUserId();
             }
             Member member = await db.Members.FindAsync(id);
-           
-           
+
+
             if (member == null)
             {
                 return HttpNotFound();
@@ -78,7 +144,7 @@ namespace TFMCooperativeSociety.Controllers
         }
 
         // POST: Members/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]

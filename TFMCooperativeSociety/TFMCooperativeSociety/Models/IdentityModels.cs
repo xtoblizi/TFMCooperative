@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -20,7 +21,10 @@ namespace TFMCooperativeSociety.Models
         [StringLength(100, ErrorMessage = "Last name cannot be longer than 100 characters.")]
         public string MiddleName { get; set; }
 
- 
+
+       // public virtual ICollection<ImageFile> Images { get; set; } = null;
+
+
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -69,6 +73,8 @@ namespace TFMCooperativeSociety.Models
         public DbSet<LoanStatus> LoanStatus { get; set; }
 
         public DbSet<Contact> Contacts { get; set; }
+        public DbSet<Blog> Blogs { get; set; }
+        public DbSet<Comment> Comments { get; set; }
 
 
     }

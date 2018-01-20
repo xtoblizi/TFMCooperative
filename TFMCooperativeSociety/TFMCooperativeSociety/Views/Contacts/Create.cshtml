@@ -4,17 +4,23 @@
     Layout = "~/Views/Shared/_FrontEnd.cshtml";
 }
 
-<br/><br/>
+<br /><br />
 <div class="container-contact">
-    <div class="container">
-        <div>
-            <h2 class="text-primary">Get In Touch With Us</h2>
+    <div class="container" id="formsection">
 
-            <h3 class="text-primary Bold"> @ViewBag.Message</h3>
-        </div>
+        <h2 class="text-primary">Get In Touch With Us</h2>
+        <h3 class="text-primary Bold"> @ViewBag.Message</h3>
+
         <div class="row">
             <div class="col-md-6">
-                <form action="@Url.Action("Create", "Contacts")" method="post">
+                @using (Ajax.BeginForm("Create", "Contacts", null, new AjaxOptions
+                {
+                    HttpMethod = "post",
+                    InsertionMode = InsertionMode.Replace,
+                    UpdateTargetId = "formsection"
+                }, new { @class = "form login-form" }))
+                {
+                    @*<form action="@Url.Action("Create", "Contacts")" method="post">*@
                     @Html.AntiForgeryToken()
 
                     <div class="form-group">
@@ -30,19 +36,20 @@
                         @Html.ValidationMessageFor(c => c.Email)
                     </div>
                     @*<div class="form-group">
-                <label for="form-subject">Telephone</label>
-                @*<input type="text" class="form-control" id="form-subject" placeholder="Subject">
-                @Html.TextBoxFor(c => c., new { @class = "input form-control", placeholder = "Name", })
-            </div>*@
+                            <label for="form-subject">Telephone</label>
+                            @*<input type="text" class="form-control" id="form-subject" placeholder="Subject">
+                            @Html.TextBoxFor(c => c., new { @class = "input form-control", placeholder = "Name", })
+                        </div>*@
                     <div class="form-group">
                         <label for="form-message">Email your Message</label>
                         @*<textarea class="form-control" id="form-message" placeholder="Message"></textarea>*@
                         @Html.TextAreaFor(c => c.Message, new { @class = "textarea form-control", placeholder = "Message" })
-                        @Html.ValidationMessageFor(c =>c.Message)
+                        @Html.ValidationMessageFor(c => c.Message)
                     </div>
                     <input type="submit" class="btn btn-primary" value="Submit" />
                     <br /><br />
-                </form>
+                }
+                @*</form>*@
             </div>
             <div class="col-md-2">
             </div>
@@ -75,15 +82,15 @@
 <script src="~/FrontEnd/bootstrap/js/bootstrap.min.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script type="text/javascript">
-        jQuery(function ($) {
-            // Google Maps setup
-            var googlemap = new google.maps.Map(
-                document.getElementById('googlemap'),
-                {
-                    center: new google.maps.LatLng(44.5403, -78.5463),
-                    zoom: 8,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP
-                }
-            );
-        });
+    jQuery(function ($) {
+        // Google Maps setup
+        var googlemap = new google.maps.Map(
+            document.getElementById('googlemap'),
+            {
+                center: new google.maps.LatLng(44.5403, -78.5463),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            }
+        );
+    });
 </script>

@@ -60,22 +60,16 @@ namespace TFMCooperativeSociety.Models
         public string Nationality { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime DateCreated
-        {
-            get { return DateTime.Now; }
-            
-            set { }
-
-       }
+        public DateTime DateCreated { get; set; }=DateTime.Now;
 
         // REsential Address Details.........
-        public string Street { get; set; }
+            public string Street { get; set; }
 
-        public string Bus_stop { get; set; }
+            public string Bus_stop { get; set; }
 
-        public string City { get; set; }
+            public string City { get; set; }
 
-        public string State { get; set; }
+            public string State { get; set; }
 
         [ScaffoldColumn(false)]
         public bool CompletedRegistration { get; set; }
@@ -85,7 +79,7 @@ namespace TFMCooperativeSociety.Models
         [Display(Name = "Upload A Passport/Picture")]
         [ValidateFile(ErrorMessage = "Please select a PNG/JPEG image smaller than 20kb")]
         [NotMapped]
-        public HttpPostedFileBase File
+        public HttpPostedFileBase ImageFile
         {
             get
             {
@@ -103,6 +97,8 @@ namespace TFMCooperativeSociety.Models
 
                     value.InputStream.CopyTo(target);
                     Passport = target.ToArray();
+
+                    
                 }
                 catch (Exception ex)
                 {
@@ -110,5 +106,7 @@ namespace TFMCooperativeSociety.Models
                 }
             }
         }
+
+        public string ImageUrl { get; set; }
     }
 }

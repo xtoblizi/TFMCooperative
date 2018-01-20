@@ -1,0 +1,36 @@
+﻿@model Tuple<TFMCooperativeSociety.Models.Blog,List<TFMCooperativeSociety.Models.Comment>>
+
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
+}
+
+<h2>Blog and related comments</h2>
+
+<table style="border: solid 2px black">
+    <tr>
+        <td> Blog Title</td>
+        <td> Blog Description</td>
+        <td> Date Created</td>
+    </tr>
+    <tr>
+        <td> @Model.Item1.BlogTitle)</td>
+        <td>@Model.Item1.Description)</td>
+        <td>@Model.Item1.DateCreated)</td>
+    </tr>
+
+</table>
+
+<h3>Comments</h3>
+<table cellpadding="5" cellspacing="5">
+    @if(Model.Item2 != null){
+
+        foreach (var item in Model.Item2)
+        {
+            <tr>
+                <td> @item.Message</td> <td>(By @item.CommentBy)</td>
+            </tr>
+        }
+    }
+</table>

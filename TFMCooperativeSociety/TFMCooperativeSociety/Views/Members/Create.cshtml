@@ -1,8 +1,89 @@
-﻿@model TFMCooperativeSociety.Models.Member
+﻿@using System.Web.UI.WebControls
+@model TFMCooperativeSociety.Models.Member
 @{
     Layout = "~/Views/Shared/_GentellaAdminLayout.cshtml";
 }
+@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
+<script src="~/Content/js/bootstrap.min.js"></script>
+<!-- bootstrap progress js -->
+@*<script src="~/Content/js/progressbar/bootstrap-progressbar.min.js"></script>*@
+<!-- icheck -->
+<script src="~/Content/js/icheck/icheck.min.js"></script>
+<script src="~/Content/js/custom.js"></script>
+<!-- form wizard -->
+<script type="text/javascript" src="~/Content/js/wizard/jquery.smartWizard.js"></script>
+<!-- pace -->
+<script src="~/Content/js/pace/pace.min.js"></script>
+@*<script src="~/Scripts/jquery-3.1.1.min.js"></script>*@
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        // Smart Wizard
+        $('#wizard').smartWizard();
+
+    });
+
+    $(document).ready(function () {
+        // Smart Wizard
+        $('#wizard_verticle').smartWizard({
+            transitionEffect: 'slide'
+        });
+
+
+    });
+
+
+
+    $(document).ready(function () {
+
+        alert('Welcome to Page');
+
+        //$('#memberForm : input').css('background-color', 'black');
+        $('#imgFormGroup').hide();
+
+        $('#ImageFile').change(function() {
+            var File = this.files;
+
+            alert("Welcome , Page working");
+            if (File && File[0]) {
+                ReadImage(File[0]);
+            }
+
+        });
+    });
+
+    var ReadImage = function (file)
+    {
+        var reader = new FileReader;
+        var image = new Image;
+
+        reader.readAsDataURL(file);
+        reader.onload = function (_file)
+        {
+            image.src = _file.target.result;
+            image.onload = function ()
+            {
+                var height = this.height;
+                var width = this.width;
+                var type = file.type;
+                var size = ~~(file.size / 1024) + "KB";
+
+                $('#targetImg').attr('src', _file.target.result);
+                $('#description').text("Size " + size + "," + height + "X" + width + "," + type + "");
+                $('#imgFormGroup').show();
+                $('#imgPreview').show();
+            }
+        }
+    }
+
+    var ClearPreview = function() {
+        $('#imageBrowse').val('');
+        $('#description').text('');
+        $('#imgPreview').hide();
+    }
+
+
+</script>
 
 <div class="">
     <div class="page-title">
@@ -80,29 +161,42 @@
                                     </span>
                                 </a>
                             </li>
-                            
+
                         </ul>
-                        <form action="@Url.Action("Create","Members")" method="post" class="form-horizontal form-label-left">
+                        <form id="memberForm" action="@Url.Action("Create","Members")" method="post" class="form-horizontal form-label-left" enctype="multipart/form-data">
 
                             @Html.AntiForgeryToken()
-
-                            <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Personal Detaisl Form------------------------------------------------------------------------------------->
+                            @Html.ValidationSummary()
+                        <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Personal Detaisl Form------------------------------------------------------------------------------------->
 
                             <div id="step-1">
+                                <div class="form-group" id="#imgFormGroup" >
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
+                                        Preview <span class="required">*</span>
+                                    </label>
+                                    <div class="col-md-3 col-sm-3 col-xs-6">
+                                        <div id="imgPreview" style="display: none; padding-bottom:5px">
+                                            <img src="" class="img-responsive" alt="PassPort" id="targetImg" />
+                                        </div>
+
+                                        <span id="description" style="border-top: 0.7px solid gray; margin-top:5px; padding-top:6px"> </span>
+                                    </div>
+                                </div>
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
-                                        Member Identity <span class="required">*</span>
+                                        Browse Picture <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @Html.EditorFor(model => model.MemberId, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
-                                        @Html.ValidationMessageFor(model => model.MemberId, "", new { @class = "text-danger", })
+                                        @*@Html.EditorFor(model => model.File, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })*@
+                                        <input type="file" name="File" id="ImageFile" />
+                                        @Html.ValidationMessageFor(model => model.ImageFile)
 
-                                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
+
                                 </div>
 
                                 <div class="form-group">
@@ -180,13 +274,13 @@
                                         Are you a TCWC Member ? <span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                        @Html.EditorFor(model => model.ISTCWC, new { @class = "input form-control col-md-7 col-xs-12", id = "last-name" })
+                                        @Html.EditorFor(model => model.ISTCWC, new { @class = "input form-control col-md-7 col-xs-12", id = "isTcwc" })
                                         @Html.ValidationMessageFor(model => model.ISTCWC, "", new { @class = "text-danger" })
 
                                         @*<input type="text" id="last-name" name="last-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="tcwcCode">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Enter TCWC MemberCode</label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
                                         @Html.EditorFor(model => model.TCWCIDCode, new { htmlAttributes = new { @class = "form-control col-md-7 col-xs-12" } })
@@ -213,27 +307,22 @@
                         </div>
                     </div>
                 </div>*@
-                                
-
                             </div>
-
-
-
                             <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Address Details------------------------------------------------------------------------------------->
 
                             <div id="step-2">
                                 <h2 class="StepTitle">Address Details </h2>
-                                <div class="form-group">
+                                @*<div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
 
                                         <p style="text-decoration:underline; font-size:15px; color:dimgray">
                                             <b>
                                                 Residential Address
                                             </b>
-                                        </p>                                     
+                                        </p>
                                     </label>
 
-                                </div>
+                                </div>*@
 
 
                                 <div class="form-group">
@@ -243,7 +332,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.EditorFor(model => model.Street, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" , PlaceHolder="Residential Street"} })
                                         @Html.ValidationMessageFor(model => model.Street, "", new { @class = "text-danger", })
 
 
@@ -257,7 +346,7 @@
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @Html.EditorFor(model => model.Bus_stop, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.EditorFor(model => model.Bus_stop, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12", PlaceHolder = "Residential Bus-stop" } })
                                         @Html.ValidationMessageFor(model => model.Bus_stop, "", new { @class = "text-danger", })
 
 
@@ -265,21 +354,19 @@
                                     </div>
                                 </div>
 
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                         City<span class="required">*</span>
                                     </label>
                                     <div class="col-md-6 col-sm-6 col-xs-12">
 
-                                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
+                                        @Html.EditorFor(model => model.City, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12", PlaceHolder = "Residential City" } })
                                         @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger", })
 
 
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
                                 </div>
-
 
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
@@ -294,25 +381,15 @@
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
 
                                         <!--Holds the value of the StateList filed  from the enum StateList-->
-                                        @Html.HiddenFor(model => model.State)
+                                        @Html.HiddenFor(model => model.State) <br/>
+                                        <hr />
                                     </div>
-                                </div>
 
+                                </div>
                                 <!-- Business Address Details-->
-                                <div class="form-group">
-                                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
 
-                                        <p style="text-decoration:underline; font-size:15px; color:dimgray">
-                                            <b>
-                                                Business Address
-                                            </b>
-                                        </p> 
-                                       
-                                    </label>
-
-                                </div>
                                 <div class="form-group">
-                                    </p>
+
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                         Business Street <span class="required">*</span>
                                     </label>
@@ -321,7 +398,6 @@
 
                                         @Html.EditorFor(model => model.BusinessStreet, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
                                         @Html.ValidationMessageFor(model => model.BusinessStreet, "", new { @class = "text-danger", })
-
 
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
@@ -336,11 +412,9 @@
                                         @Html.EditorFor(model => model.BusinessCity, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
                                         @Html.ValidationMessageFor(model => model.BusinessCity, "", new { @class = "text-danger", })
 
-
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
                                 </div>
-
                                 <div class="form-group">
                                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">
                                         Business State <span class="required">*</span>
@@ -350,16 +424,11 @@
                                         @Html.EditorFor(model => model.BusinessState, new { htmlAttributes = new { @class = "input form-control col-md-7 col-xs-12" } })
                                         @Html.ValidationMessageFor(model => model.BusinessState, "", new { @class = "text-danger", })
 
-
                                         @*<input type="text" id="first-name" required="required" class="form-control col-md-7 col-xs-12">*@
                                     </div>
                                 </div>
-
-
                             </div>
-
                             <!---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------Conclusion And Summition------------------------------------------------------------------------------------->
-
 
                             <div id="step-3">
                                 <h2 class="StepTitle">Step 3 Content</h2>
@@ -370,160 +439,17 @@
 
                                 </p>
                                 <p>
-
                                 </p>
-                                <input type="submit" name="submit" value="Submit" class="btn btn-default" />
+                                <input style="background-color: forestgreen; font-weight: bolder; color:#fff" type="submit" name="submit" value="Submit" class="btn btn-lg" />
                             </div>
-
-                            @*<div id="step-4">
-                <h2 class="StepTitle">Step 4 Content</h2>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-                <p>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                    in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-            </div>*@
-
-
-
                         </form>
                         </div>
-                  
+
                     <!-- End SmartWizard Content for horizontal -->
 
 
                                 <h2>Completed: ?  Almost Done</h2>
-                    <!-- Tabs  SmartWizard Content For Vertical-->
-                                @*<div id="wizard_verticle" class="form_wizard wizard_verticle">
-                                    <ul class="list-unstyled wizard_steps">
-                                        <li>
-                                            <a href="#step-11">
-                                                <span class="step_no">1</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-22">
-                                                <span class="step_no">2</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-33">
-                                                <span class="step_no">3</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#step-44">
-                                                <span class="step_no">4</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                    <div id="step-11">
-                                        <h2 class="StepTitle">Step 1 Content</h2>
-                                        <form action="@Url.Action("","")" method="post" class="form-horizontal form-label-left">
-                                            <span class="section">Personal Info</span>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3" for="first-name">
-                                                    First Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="text" id="first-name2" required="required" class="form-control col-md-7 col-xs-12">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3" for="last-name">
-                                                    Last Name <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input type="text" id="last-name2" name="last-name" required="required" class="form-control col-md-7 col-xs-12">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="middle-name" class="control-label col-md-3 col-sm-3">Middle Name / Initial</label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input id="middle-name2" class="form-control col-md-7 col-xs-12" type="text" name="middle-name">
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3">Gender</label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <div id="gender2" class="btn-group" data-toggle="buttons">
-                                                        <label class="btn btn-default" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                            <input type="radio" name="gender" value="male"> &nbsp; Male &nbsp;
-                                                        </label>
-                                                        <label class="btn btn-primary active" data-toggle-class="btn-primary" data-toggle-passive-class="btn-default">
-                                                            <input type="radio" name="gender" value="female" checked=""> Female
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-md-3 col-sm-3">
-                                                    Date Of Birth <span class="required">*</span>
-                                                </label>
-                                                <div class="col-md-6 col-sm-6">
-                                                    <input id="birthday2" class="date-picker form-control col-md-7 col-xs-12" required="required" type="text">
-                                                </div>
-                                            </div>
-                                        </form>
-                                        
-                                    </div>
-                                    <div id="step-22">
-                                        <h2 class="StepTitle">Step 2 Content</h2>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                    </div>
-                                    <div id="step-33">
-                                        <h2 class="StepTitle">Step 3 Content</h2>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                    </div>
-                                    <div id="step-44">
-                                        <h2 class="StepTitle">Step 4 Content</h2>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                        <p>
-                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-                                            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                                        </p>
-                                    </div>
-                                </div>*@
+
                     <!-- End SmartWizard Content -->
 
                             </div>
@@ -531,9 +457,8 @@
                     </div>
                 </div>
             </div>
-                            
 
-                            <script src="~/Content/js/bootstrap.min.js"></script>
+                            @*<script src="~/Content/js/bootstrap.min.js"></script>
                             <!-- bootstrap progress js -->
                             <script src="~/Content/js/progressbar/bootstrap-progressbar.min.js"></script>
                             <!-- icheck -->
@@ -555,5 +480,6 @@
                                         transitionEffect: 'slide'
                                     });
 
+
                                 });
-                            </script>
+                            </script>*@

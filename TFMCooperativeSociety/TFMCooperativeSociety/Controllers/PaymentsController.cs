@@ -79,7 +79,7 @@ namespace TFMCooperativeSociety.Controllers
 
         // GET: Payments/Create
 
-        public async Task<ActionResult> Create()
+        public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
             // var memberDeatails = db.Members.SingleOrDefault(m => m.MemberId == userId).FirstName;

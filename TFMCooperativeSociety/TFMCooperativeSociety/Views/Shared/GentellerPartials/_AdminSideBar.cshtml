@@ -5,20 +5,23 @@
             <li>
                 <a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
-                    
+
                 </ul>
             </li>
             <li>
                 <a><i class="fa fa-edit"></i> Members <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
                     <li>
-                        <a href="@Url.Action("","")">View Members</a>
+                        <a href="@Url.Action("Index","Members")">View Members</a>
                     </li>
                     <li>
-                        <a href="form_advanced.html">Add Members</a>
+                        <a href="@Url.Action("Create","Members")">Add Members</a>
                     </li>
                     <li>
-                        <a href="form_validation.html">Delete Members</a>
+                        <a href="@Url.Action("ApproveMembersList","Members")">Approve Members</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("DeactivateList","Members")">Deactivate Members</a>
                     </li>
                     @*  *@
                 </ul>
@@ -26,13 +29,17 @@
             <li>
                 <a><i class="fa fa-desktop"></i> Payments <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu" style="display: none">
+
                     <li>
-                        <a href="general_elements.html">Approve Payments</a>
+                        <a href="@Url.Action("Index","Payments")">All Payments</a>
                     </li>
                     <li>
-                        <a href="media_gallery.html">Delete Payment</a>
+                        <a href="@Url.Action("ApproveList","Payments")">Approve Payments</a>
                     </li>
-                    
+                    <li>
+                        <a href="@Url.Action("DeactivateList", "Payments")">Deactivate Payment</a>
+                    </li>
+
                 </ul>
             </li>
             @*<li>

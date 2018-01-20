@@ -23,10 +23,10 @@ namespace TFMCooperativeSociety.Controllers
 
         public async Task<ActionResult> LoanStatusView()
         {
-            var retrieve = db.LoanStatus.Where(l => l.LoanStatusId > 1);
+            var retrieve = db.LoanStatus.Where(l => l.LoanStatusId > 1).OrderByDescending(l=>l.DateCreated);
             if (retrieve.Any())
             {
-                var result = retrieve.First(p => p.LoanStatusId == 1);
+                var result = retrieve.First();
 
                 ViewBag.Message = "The Status of the currently applied loan is as follows";
                 return View(result);

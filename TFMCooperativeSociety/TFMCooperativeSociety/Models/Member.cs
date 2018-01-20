@@ -24,6 +24,13 @@ namespace TFMCooperativeSociety.Models
         [DataType(DataType.Date)]
         public DateTime? DateOfBirth { get; set; }
 
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
+
+            [DataType(DataType.Password)]
+            [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+            public string ConfirmPassword { get; set; }
+
         [DisplayName("Business City")]
         public string BusinessCity { get; set; }
 
@@ -33,11 +40,12 @@ namespace TFMCooperativeSociety.Models
         [ScaffoldColumn(false)]
         public bool IsCompleted { get; set; } = false;
 
-        public bool Active { get; set; } 
+        public bool Active { get; set; } = true;
         //nav links
         public virtual ICollection<Payment> Payments { get; set; }
         public virtual ICollection<MemberBankDetail> MemberBankDetails { get; set; }
 
+      
         public string BusinesFullAdress
 
         {
@@ -51,6 +59,6 @@ namespace TFMCooperativeSociety.Models
             get { return Street + ","+""+ Bus_stop +","+ "" + City + "," +""+ State + "," +""+ "Nigeria."; }
             set { }
         }
-
+     
     }
 }

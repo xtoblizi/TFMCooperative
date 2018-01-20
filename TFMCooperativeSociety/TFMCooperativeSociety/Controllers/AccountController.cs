@@ -267,7 +267,7 @@ namespace TFMCooperativeSociety.Controllers
                             // await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: true);
 
                             ViewBag.Message = "Registration Successful Sign In Now, To Continue";
-                            return RedirectToAction("Login", "Account" , new { message = ViewBag.Message});
+                            return RedirectToAction("Login", "Account", new { message = ViewBag.Message });
                         }
                     }
                     catch (Exception ex)
@@ -276,9 +276,8 @@ namespace TFMCooperativeSociety.Controllers
                         return View(model);
                     }
                 }
-                               
-                    ViewBag.Message = "This Email" + "" + "" + model.Email + "" + " already exist, Login or use another email address";
-                    return View(); 
+                ViewBag.Message = "This Email" + "" + "" + model.Email + "" + " already exist, Login or use another email address";
+                return View();
             }
 
             ViewBag.Message = "Verify your entry ";
